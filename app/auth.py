@@ -18,8 +18,8 @@ def login_post():
     # Check for fields
     if not username or not password:
         return redirect('/login')
-    user = mongo.db.users.find_one({'username': username, 'password': password})
-    if user:
+    user = mongo.db.users.find_one({'username': username})
+    if user and User.check_password(user['password'], password):
         login_user(User(username=user['username']))
         return redirect('/')
     else:
@@ -34,14 +34,19 @@ def register():
 
 @auth.route('/register', methods=['POST'])
 def register_post():
-    role = request.form.get('role')
     username = request.form.get('username')
     password = request.form.get('password')
     # Check for fields
-    if not role or not username or not password:
+    if not username or not password:
         return redirect('/login')
-    # TODO: check if user exists, password length, password hashing
 
-    mongo.db.users.insert_one({'isManager': role, 'username': username, 'password': password})
+    # TODO: check if user exists, password length, password hashing
+    user = mongo.db.users.find_one({'username': username})
+    if user:
+        flash('User already exists')
+        return redirect('/register')
+    # Hash the password
+    password = User.generate_password(password)
+    mongo.db.users.insert_one({'isManager': True, 'username': username, 'password': password})
     flash('User registered successfully')
     return redirect('/login')
