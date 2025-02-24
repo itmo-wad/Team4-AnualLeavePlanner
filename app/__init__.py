@@ -8,6 +8,7 @@ mongo = PyMongo()
 
 def create_app():
     app = Flask(__name__)
+    app.static_folder = 'static'
     app.config['SECRET_KEY'] = 'secret'
     mongo_host = os.getenv('MONGO_HOST', 'localhost')
     mongo_port = int(os.getenv('MONGO_PORT', 27017))
