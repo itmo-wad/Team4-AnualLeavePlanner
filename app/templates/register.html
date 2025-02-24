@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Manager Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<h2>Manager Registration</h2>
-{% with messages = get_flashed_messages() %}
+    <div class="container">
+        <h1>📅 Annual Leave Planner</h1>
+        <h2>Manager Registration</h2>
+        {% with messages = get_flashed_messages() %}
             {% if messages %}
-                    {% for message in messages %}
-                            {% for message in messages %}
-                                {{ message }}
-                            {% endfor %}
-                    {% endfor %}
+                {% for message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
             {% endif %}
         {% endwith %}
-<form action="/register" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <button type="submit">Register</button>
-</form>
-<button onclick="window.location.href = '/login';">Login</button>
+        <form action="/register" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Register</button>
+        </form>
+        <button class="secondary-btn" onclick="window.location.href = '/login';">Login</button>
+    </div>
 </body>
 </html>
