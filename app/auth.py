@@ -20,7 +20,7 @@ def login_post():
         return redirect('/login')
     user = mongo.db.users.find_one({'username': username})
     if user and User.check_password(user['password'], password):
-        login_user(User(username=user['username']))
+        login_user(User(username=user['username'], email=user.get('email', '')))
         return redirect('/')
     else:
         flash('Invalid username or password')
@@ -47,6 +47,6 @@ def register_post():
         return redirect('/register')
     # Hash the password
     password = User.generate_password(password)
-    mongo.db.users.insert_one({'isManager': True, 'username': username, 'password': password})
+    mongo.db.users.insert_one({'isManager': True, 'username': username, 'password': password, 'email': ''})
     flash('User registered successfully')
     return redirect('/login')

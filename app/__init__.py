@@ -32,7 +32,7 @@ def create_app():
         u = mongo.db.users.find_one({'username': username})
         if not u:
             return None
-        return User(username=u['username'])
+        return User(username=u['username'], email=u.get('email', ''), isManager=u.get('isManager', False))
 
     return app
 
