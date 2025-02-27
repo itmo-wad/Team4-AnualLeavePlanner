@@ -69,3 +69,23 @@ button:hover {
 .secondary-btn:hover {
     background: #bbb;
 }
+.logout-button {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.logout-button a {
+    display: inline-block;
+    background-color: #e74c3c;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.logout-button a:hover {
+    background-color: #c0392b;
+}

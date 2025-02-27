@@ -1,0 +1,107 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f4f6f9;
+}
+
+/* Sidebar */
+nav {
+    width: 25%;
+    background-color: #2c3e50;
+    color: white;
+    padding-top: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+nav h2 {
+    color: #fff;
+    margin: 0 0 20px 30px;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+nav ul li {
+    width: 100%;
+}
+
+nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #34495e;
+}
+
+nav ul li a.active {
+    background-color: #556270;
+}
+
+/* Content */
+.content {
+    margin-left: 25%;
+    width: 75%;
+    padding: 30px;
+    background-color: #fff;
+}
+
+/* Welcome message container */
+.welcome-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.welcome-container h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.welcome-container p {
+    font-size: 18px;
+    color: #7f8c8d;
+}
+
+/* Footer - logout button */
+.logout-button {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.logout-button a {
+        background: black;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+}
+
+.logout-button a:hover {
+    background-color: #c0392b;
+}
+
