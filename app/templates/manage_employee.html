@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Employees</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='manage_employee.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="/manager_dashboard"> 🏠 Dashboard</a></li>
+            <li><a href="/manager_dashboard/manage_employee" class="active">👥 Manage Employees</a></li>
+            <li><a href="#leave_approvals">📅 Leave Approvals</a></li>
+        </ul>
+    
+        <div class="logout-button">
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="content">
+        <h1>Manage Employees</h1>
+
+        <!-- Formulaire d'ajout -->
+        <form method="POST" class="employee-form">
+            <input type="text" name="surname" placeholder="Surname" required>
+            <input type="text" name="firstname" placeholder="Firstname" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <button type="submit">Add Employee</button>
+        </form>
+
+        <table class="employee-table">
+            <thead>
+                <tr>
+                    <th>Surname</th>
+                    <th>Firstname</th>
+                    <th>Email</th>
+                    <th>Total leave days</th>
+                    <th>Planned leave days</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.surname }}</td>
+                    <td>{{ employee.firstname }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.total_leave_days }}</td>
+                    <td>{{ employee.planned_leave_days }}</td>
+                    <td>
+                        <button class="edit-btn" onclick="openEditModal('{{ employee._id }}', '{{ employee.surname }}', '{{ employee.firstname }}', '{{ employee.email }}', '{{ employee.total_leave_days }}', '{{ employee.planned_leave_days }}')">Edit</button>
+                        <button class="delete-btn" onclick="deleteEmployee('{{ employee._id }}')">Delete</button>
+                    </td>                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Modal d'édition -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Employee</h2>
+                <form id="editForm">
+                    <input type="hidden" id="editId">
+                    <input type="text" id="editSurname" placeholder="Surname" required>
+                    <input type="text" id="editFirstname" placeholder="Firstname" required>
+                    <input type="email" id="editEmail" placeholder="Email" required>
+                    <input type="number" id="editTotalLeave" placeholder="Total leave days" required>
+                    <input type="number" id="editPlannedLeave" placeholder="Planned leave days" required>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            function openEditModal(id) {
+                document.getElementById("editModal").style.display = "block";
+                // Charger les données de l'employé ici avec une requête AJAX
+            }
+
+            function deleteEmployee(id) {
+                if (confirm("Are you sure?")) {
+                    fetch(`/delete_employee/${id}`, { method: "DELETE" })
+                        .then(response => response.json())
+                        .then(data => { alert(data.message); location.reload(); });
+                }
+            }
+        </script>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='manage_employee.js') }}"></script>
+
+</body>
+</html>

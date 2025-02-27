@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="#" class="active"> 🏠 Dashboard</a></li>
+            <li><a href="/manager_dashboard/manage_employee"></i>👥 Manage Employees</a></li>
+            <li><a href="#leave_approvals"></i>📅 Leave Approvals</a></li>
+        </ul>
+    
+        <div class="logout-button">
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="content">
+
+        <!-- Welcome Message -->
+        <div class="welcome-container">
+            <h1>Welcome, {{ user['username'] }}!</h1>
+            <p>Here you can manage employees, approve leave requests, and view the calendar of upcoming events.</p>
+        </div>
+
+        <!-- Calendar -->
+        <div id="calendar"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#calendar').fullCalendar({
+                    events: '/calendar_data',
+                });
+            });
+        </script>
+
+    </div>
+
+
+</body>
+</html>
