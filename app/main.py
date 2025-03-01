@@ -5,13 +5,16 @@ from . import mongo
 from .models import User
 import smtplib
 from email.mime.text import MIMEText
+import os
 
 main = Blueprint('main', __name__)
 
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SENDER_EMAIL = "example@example.com"
-SENDER_PASSWORD = "example"
+SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+SMTP_PORT = os.getenv("SMTP_PORT", 587)
+SENDER_EMAIL = os.getenv("SMTP_USERNAME", "")
+SENDER_PASSWORD = os.getenv("SMTP_PASSWORD", "")
+# Boolean hack
+SEND_EMAIL = os.getenv("SEND_EMAIL", "True").lower() in ("true", "1", "t")
 
 def send_email(to_email, username, password):
     """Sends an email with login details."""
@@ -93,7 +96,7 @@ def manage_employee():
         hashed_password = User.hash_password(password)
 
         if mongo.db.users.find_one({'email': email}):
-            flash("User already exists", "warning")
+            flash("User already exists", "error")
         else:
             mongo.db.users.insert_one({
                 "username": username,
@@ -105,9 +108,12 @@ def manage_employee():
                 "total_leave_days": 30,
                 "planned_leave_days": 0
             })
-
-            send_email(email, username, password)
-            flash("Employee successfully added and email sent !", "success")
+            if SEND_EMAIL:
+                send_email(email, username, password)
+                flash("Employee successfully added and email sent !", "success")
+            else:
+                # Debug mode, we don't send email
+                flash(f"Employee successfully added, username: {username} password: {password}", "success")
 
     employees = mongo.db.users.find({"isManager": False})
     return render_template("manage_employee.html", employees=employees)

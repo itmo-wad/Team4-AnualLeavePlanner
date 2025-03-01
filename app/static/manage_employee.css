@@ -248,3 +248,11 @@ nav ul li a:hover, nav ul li a.active {
 .logout-button a:hover {
     background-color: #c0392b;
 }
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}

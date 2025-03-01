@@ -10,6 +10,12 @@ services:
       - MONGO_HOST=mongodb
       - MONGO_PORT=27017
       - MONGO_DB_NAME=leave_management
+      - SMTP_SERVER=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USE_TLS=true
+      - SMTP_USERNAME=example@example.com
+      - SMTP_PASSWORD=example
+      - SEND_EMAIL=True
 
   mongodb:
     image: mongo:latest

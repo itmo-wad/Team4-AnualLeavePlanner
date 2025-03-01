@@ -36,7 +36,13 @@
             <input type="email" name="email" placeholder="Email" required>
             <button type="submit">Add Employee</button>
         </form>
-
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <table class="employee-table">
             <thead>
                 <tr>
