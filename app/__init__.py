@@ -27,6 +27,9 @@ def create_app():
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    from .employee import employee as employee_blueprint
+    app.register_blueprint(employee_blueprint)
+
     @login_manager.user_loader
     def load_user(username):
         u = mongo.db.users.find_one({'username': username})

@@ -105,3 +105,85 @@ nav ul li a.active {
     background-color: #c0392b;
 }
 
+/* Leave table */
+.leave-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leave-table th, .leave-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.leave-table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.leave-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.leave-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.leave-table button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.leave-table button:hover {
+    background-color: #34495e;
+}
+
+/* Leave form */
+.leave-form {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+.leave-form input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.leave-form button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.leave-form button:hover {
+    background-color: #34495e;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}

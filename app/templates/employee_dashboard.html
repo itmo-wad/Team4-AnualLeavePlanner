@@ -29,7 +29,11 @@
         <!-- Welcome Message -->
         <div class="welcome-container">
             <h1>Welcome, {{ user['username'] }}!</h1>
+            <p>Here's an overview of your annual leave.</p>
+            <p>Total days left: {{ user['total_leave_days'] }}. Planned days: {{ user['planned_leave_days'] }}. Days left: {{ user['total_leave_days']-user['planned_leave_days'] }}</p>
         </div>
+
+
 
         <!-- Calendar -->
         <div id="calendar"></div>
@@ -40,12 +44,66 @@
             $(document).ready(function() {
                 $('#calendar').fullCalendar({
                     events: '/calendar_data',
+                    height: 600,
                 });
             });
         </script>
 
+
+        <h2>Leave Requests</h2>
+        <form method="POST" class="leave-form">
+            <input type="date" name="start_date" required>
+            <input type="date" name="end_date" required>
+            <button type="submit">Add Leave</button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <table class="leave-table">
+            <thead>
+                <tr>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leaves %}
+                <tr>
+                    <td>{{ leave.start_date }}</td>
+                    <td>{{ leave.end_date }}</td>
+                    <td>{{ leave.status }}</td>
+                    <td>
+                        <!-- js call to cancel leave -->
+                        <button class="cancel-btn" onclick="cancelLeave('{{ leave._id }}', this.closest('tr'))">Cancel</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-
+    <script>
+        function cancelLeave(id, row) {
+            if (confirm('Are you sure you want to cancel this leave?')) {
+                fetch(`/cancel_leave/${id}`, {
+                    method: 'POST',
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            alert('Leave cancelled successfully');
+                            row.remove();
+                        } else {
+                            alert('An error occurred. Please try again.');
+                        }
+                    });
+            }
+        }
+    </script>
 </body>
 </html>

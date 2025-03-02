@@ -73,12 +73,6 @@ def manager_dashboard():
     user = mongo.db.users.find_one({'username': current_user.username})
     return render_template('manager_dashboard.html', user=user)
 
-#  Route to employee dashboard
-@main.route('/employee_dashboard')
-@login_required
-def employee_dashboard():
-    user = mongo.db.users.find_one({'username': current_user.username})
-    return render_template('employee_dashboard.html', user=user)
 
 @main.route('/manager_dashboard/manage_employee', methods=['GET', 'POST'])
 @login_required
@@ -113,7 +107,7 @@ def manage_employee():
                 flash("Employee successfully added and email sent !", "success")
             else:
                 # Debug mode, we don't send email
-                flash(f"Employee successfully added, username: {username} password: {password}", "success")
+                flash(f"Employee successfully added, username: {username}, password: {password}", "success")
 
     employees = mongo.db.users.find({"isManager": False})
     return render_template("manage_employee.html", employees=employees)
