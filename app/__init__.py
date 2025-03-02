@@ -30,6 +30,9 @@ def create_app():
     from .employee import employee as employee_blueprint
     app.register_blueprint(employee_blueprint)
 
+    from .calendar import calendar as calendar_blueprint
+    app.register_blueprint(calendar_blueprint)
+
     @login_manager.user_loader
     def load_user(username):
         u = mongo.db.users.find_one({'username': username})

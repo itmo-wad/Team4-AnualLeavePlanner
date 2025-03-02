@@ -45,6 +45,7 @@
                 $('#calendar').fullCalendar({
                     events: '/calendar_data',
                     height: 600,
+                    firstDay: 1,
                 });
             });
         </script>
@@ -98,6 +99,7 @@
                         if (data.success) {
                             alert('Leave cancelled successfully');
                             row.remove();
+                            $('#calendar').fullCalendar('refetchEvents');
                         } else {
                             alert('An error occurred. Please try again.');
                         }
