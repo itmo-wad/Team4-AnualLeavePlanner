@@ -47,8 +47,7 @@ To get the project up and running locally on your machine, follow the steps belo
    ```
    
 6. **Visit the application**
-	Open your browser and navigate to http://127.0.0.1:5000/.
-<br>	
+	Open your browser and navigate to http://127.0.0.1:5000/
 	
 	
 ## 2. Features<br>
