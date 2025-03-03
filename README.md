@@ -85,7 +85,7 @@ To get the project up and running locally on your machine, follow the steps belo
 ## 4. Project Structure
 
 The project follows a modular structure to separate concerns for better maintainability.
-.
+```
 ├── .gitignore
 ├── app.py                  # Main application file
 ├── docker-compose-debug.yml
@@ -111,7 +111,7 @@ The project follows a modular structure to separate concerns for better maintain
 │   ├── manager_dashboard.html  # Manager dashboard page
 │   ├── manage_employee.html    # Employee management page
 │   ├── register.html           # Registration page
-
+```
 
 ## 5. Current Progress
 
