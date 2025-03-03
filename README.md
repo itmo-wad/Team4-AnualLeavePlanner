@@ -14,6 +14,7 @@ This project is a web-based application designed to help employees submit and ma
 [8. Contributing](#8-contributing)
 
 
+
 ## 1. Installation Instructions
 
 To get the project up and running locally on your machine, follow the steps below:
@@ -82,6 +83,7 @@ To get the project up and running locally on your machine, follow the steps belo
 - **Deployment**: Docker for containerization
 
 
+
 ## 4. Project Structure
 
 The project follows a modular structure to separate concerns for better maintainability.
@@ -113,6 +115,7 @@ The project follows a modular structure to separate concerns for better maintain
 │   ├── register.html           # Registration page
 ```
 
+
 ## 5. Current Progress
 
 ### **Design Tasks:**
@@ -136,6 +139,7 @@ The project follows a modular structure to separate concerns for better maintain
 - Resolve overlapping leave requests by developing the **Handle Conflicts (#10)** feature, which ensures no double bookings.
 
 
+
 ## 6. Running the Project
 
 1. **Local Development**:
@@ -145,15 +149,13 @@ The project follows a modular structure to separate concerns for better maintain
 2. **Docker Setup**:
 
    To run the app in a containerized environment using Docker, use the following commands:
+	```bash
+	bash
+	   docker-compose up --build
+	 ```
+	This will build the necessary containers and start the application.
 
-   
 
-bash
-   docker-compose up --build
-
-
-
-   This will build the necessary containers and start the application.
 
 ## 7. Testing
 
@@ -162,6 +164,8 @@ To test the application:
 1. **Unit Tests**: We recommend writing unit tests for each module to ensure everything functions correctly. You can use the unittest or pytest framework.
 
 2. **Manual Testing**: Test the application manually by submitting leave requests, approving/rejecting them, and ensuring there are no conflicts.
+
+
 
 ## 8. Contributing
 
