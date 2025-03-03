@@ -4,13 +4,13 @@ This project is a web-based application designed to help employees submit and ma
 
 ## Table of Contents
 
-[1. Installation Instructions](#1-installation-instructions)
-[2. Features](#2-features)
-[3. Technologies Used](#3-technologies-used)
-[4. Project Structure](#4-project-structure)
-[5. Current Progress](#5-current-progress)
-[6. Running the Project](#6-running-the-project)
-[7. Testing](#7-testing)
+[1. Installation Instructions](#1-installation-instructions)  
+[2. Features](#2-features)  
+[3. Technologies Used](#3-technologies-used)  
+[4. Project Structure](#4-project-structure)  
+[5. Current Progress](#5-current-progress)  
+[6. Running the Project](#6-running-the-project)  
+[7. Testing](#7-testing)  
 [8. Contributing](#8-contributing)
 
 
