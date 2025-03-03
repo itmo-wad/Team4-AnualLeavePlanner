@@ -4,8 +4,8 @@ This project is a web-based application designed to help employees submit and ma
 
 ## Table of Contents
 
-- [1. Installation Instructions](#installation-instructions)
-- [2. Features](#features)
+- [1. Installation Instructions](#1.-installation-instructions)
+- [2. Features](#2.-features)
 - [3. Technologies Used](#technologies-used)
 - [4. Project Structure](#project-structure)
 - [5. Current Progress](current-progress)
