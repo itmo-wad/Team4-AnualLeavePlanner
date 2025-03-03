@@ -4,16 +4,14 @@ This project is a web-based application designed to help employees submit and ma
 
 ## Table of Contents
 
-- [1. Installation Instructions](#1-installation-instructions)
-- [2. Features](#2.-features)
-- [3. Technologies Used](#technologies-used)
-- [4. Project Structure](#project-structure)
-- [5. Current Progress](current-progress)
-- [6. Running the Project](#running-the-project)
-- [7. Testing](#testing)
-- [8. Contributing](#contributing)
-- [9. License](#license)
-
+[1. Installation Instructions](#1-installation-instructions)
+[2. Features](#2-features)
+[3. Technologies Used](#3-technologies-used)
+[4. Project Structure](#4-project-structure)
+[5. Current Progress](#5-current-progress)
+[6. Running the Project](#6-running-the-project)
+[7. Testing](#7-testing)
+[8. Contributing](#8-contributing)
 
 
 ## 1. Installation Instructions
@@ -174,7 +172,3 @@ We welcome contributions! If you'd like to improve the project, please follow th
 3. Make your changes and commit them (git commit -am 'Add new feature').
 4. Push the changes (git push origin feature/your-feature).
 5. Submit a pull request.
-
-## 9. License
-
-This project is licensed under the **GPL (General Public License)**. See the [LICENSE](LICENSE) file for full details.
