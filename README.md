@@ -19,34 +19,34 @@ This project is a web-based application designed to help employees submit and ma
 
 To get the project up and running locally on your machine, follow the steps below:
 
-	 1.**Clone the repository**:
+1.**Clone the repository**:
 
    ```bash
    git clone https://github.com/yourusername/annual-leave-planner.git
    cd annual-leave-planner
    ```
    
-	2. **Set up a Python virtual environment:**:
+2. **Set up a Python virtual environment:**:
 
    ```bash
    git clone https://github.com/yourusername/annual-leave-planner.git
    cd annual-leave-planner
    ```
    
-	3. **Install dependencies:**:
+3. **Install dependencies:**:
    ```bash
 	pip install -r requirements.txt
    ```
    
-	4. **Set up MongoDB:**:
+4. **Set up MongoDB:**:
 	Ensure MongoDB is running locally
 	
-	5. **Run the app:**:
+5. **Run the app:**:
    ```bash
 	python app.py
    ```
    
-	4. **Visit the application:**:
+6. **Visit the application:**:
 	Open your browser and navigate to http://127.0.0.1:5000/.
 	
 	
