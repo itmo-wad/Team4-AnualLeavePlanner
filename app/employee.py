@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import render_template, redirect, request, Blueprint, flash, jsonify
 from bson.objectid import ObjectId
@@ -30,9 +30,10 @@ def employee_dashboard_post():
     planned_leave_days = user['planned_leave_days']
     # Calculate the number of days between start_date and end_date
     start_date = datetime.strptime(request.form.get('start_date'), "%Y-%m-%d")
-    end_date = datetime.strptime(request.form.get('end_date'), "%Y-%m-%d")
-    # Add 1 to include the end_date
-    days = (end_date - start_date).days + 1
+    # Here we add 1 so that the end_date is included, e.g. 2025-01-01 to 2025-01-03 is 3 days
+    end_date = datetime.strptime(request.form.get('end_date'), "%Y-%m-%d") + timedelta(days=1)
+
+    days = (end_date - start_date).days
     planned_leave_days += days
     user['planned_leave_days'] = planned_leave_days
     mongo.db.users.update_one({'_id': user['_id']}, {"$set": user})
