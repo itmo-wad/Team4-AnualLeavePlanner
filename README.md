@@ -5,13 +5,14 @@ This project is a web-based application designed to help employees submit and ma
 ## Table of Contents
 
 [1. Installation Instructions](#1-installation-instructions)  
-[2. Features](#2-features)  
-[3. Technologies Used](#3-technologies-used)  
-[4. Project Structure](#4-project-structure)  
-[5. Current Progress](#5-current-progress)  
-[6. Running the Project](#6-running-the-project)  
-[7. Testing](#7-testing)  
-[8. Contributing](#8-contributing)
+[2. Environment Variables Configuration](#2-environment-variables-configuration)  
+[3. Features](#3-features)  
+[4. Technologies Used](#4-technologies-used)  
+[5. Project Structure](#5-project-structure)  
+[6. Current Progress](#6-current-progress)  
+[7. Running the Project](#7-running-the-project)  
+[8. Testing](#8-testing)  
+[9. Contributing](#9-contributing)  
 <br>
 
 
@@ -48,9 +49,34 @@ To get the project up and running locally on your machine, follow the steps belo
    
 6. **Visit the application**
 	Open your browser and navigate to http://127.0.0.1:5000/
-	
-	
-## 2. Features<br>
+
+## 2. Environment Variables Configuration
+### Environment Variables
+
+Before running the project, you will need to configure some environment variables. These values are used for email setup, authentication, and other configurations. The environment variables should be defined in a `.env` file or set directly in your environment.
+
+#### **List of Required Environment Variables:**
+```env
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_email_password
+SEND_EMAIL=True
+```
+
+#### **Explanation of the Variables:**
+- **`SMTP_SERVER`** → The SMTP server address used for sending emails (`smtp.gmail.com` for Gmail).
+- **`SMTP_PORT`** → The port number used for SMTP communication (`587` for TLS).
+- **`SMTP_USERNAME`** → The email address used for sending emails.
+- **`SMTP_PASSWORD`** → The password or app-specific password for the sender's email account.
+- **`SEND_EMAIL`** → A boolean value (`True` or `False`) that controls email sending:
+  - `True` → Emails will be sent as expected.
+  - `False` → Email sending will be **skipped**, and the manager's password will be shown instead (useful for development).
+<br>
+
+
+
+## 3. Features<br>
 
 ### User Management
 - Managers can create employee accounts, assign roles, and manage users.
@@ -73,7 +99,7 @@ To get the project up and running locally on your machine, follow the steps belo
 <br>
 
 
-## 3. Technologies Used
+## 4. Technologies Used
 
 - **Backend**: Flask (Python web framework)
 - **Database**: MongoDB (NoSQL database)
@@ -83,7 +109,7 @@ To get the project up and running locally on your machine, follow the steps belo
 
 
 
-## 4. Project Structure
+## 5. Project Structure
 
 The project follows a modular structure to separate concerns for better maintainability.
 ```
@@ -115,7 +141,7 @@ The project follows a modular structure to separate concerns for better maintain
 ```
 <br>
 
-## 5. Current Progress
+## 6. Current Progress
 
 ### **Design Tasks**
 1. **Login/Register (#1)**: Done ✅
@@ -139,7 +165,7 @@ The project follows a modular structure to separate concerns for better maintain
 <br>
 
 
-## 6. Running the Project
+## 7. Running the Project
 
 1. **Local Development**
 
@@ -155,7 +181,7 @@ The project follows a modular structure to separate concerns for better maintain
 <br>
 
 
-## 7. Testing
+## 8. Testing
 
 To test the application:
 
@@ -165,7 +191,7 @@ To test the application:
 <br>
 
 
-## 8. Contributing
+## 9. Contributing
 
 We welcome contributions! If you'd like to improve the project, please follow these steps:
 
