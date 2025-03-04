@@ -141,3 +141,63 @@ def delete_employee(id):
             return jsonify({"message": "Employee not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@main.route('/manager_dashboard/leave_approvals', methods=['GET'])
+@login_required
+def leave_approvals():
+    if not current_user.isManager:
+        return redirect('/login')
+    leave_requests = mongo.db.leave_requests.aggregate([
+        {
+            '$lookup': {
+                'from': 'users',
+                'localField': 'user_id',
+                'foreignField': '_id',
+                'as': 'employee_info'
+            }
+        },
+        {
+            '$unwind': '$employee_info'
+        },
+        {
+            '$project': {
+                'surname': '$employee_info.surname',
+                'firstname': '$employee_info.firstname',
+                'email': '$employee_info.email',
+                'start_date': 1,
+                'end_date': 1,
+                'status': 1,
+                'id': '$_id'
+            }
+        }
+    ])
+    return render_template('leave_approvals.html', leave_requests=leave_requests)
+
+
+@main.route('/manager_dashboard/approve_leave/<id>', methods=['POST'])
+@login_required
+def approve_leave_request(id):
+    if not current_user.isManager:
+        return redirect('/login')
+    leave_request = mongo.db.leave_requests.find_one({'_id': ObjectId(id)})
+    if not leave_request:
+        return jsonify({"success": False, "message": "Leave request not found"})
+    if leave_request['status'] != 'pending':
+        return jsonify({"success": False, "message": "Leave request has already been processed"})
+    mongo.db.leave_requests.update_one({'_id': ObjectId(id)}, {'$set': {'status': 'approved'}})
+    return jsonify({"success": True, "message": "Leave request approved"})
+
+
+@main.route('/manager_dashboard/reject_leave/<id>', methods=['POST'])
+@login_required
+def reject_leave_request(id):
+    if not current_user.isManager:
+        return redirect('/login')
+    leave_request = mongo.db.leave_requests.find_one({'_id': ObjectId(id)})
+    if not leave_request:
+        return jsonify({"success": False, "message": "Leave request not found"})
+    if leave_request['status'] != 'pending':
+        return jsonify({"success": False, "message": "Leave request has already been processed"})
+    mongo.db.leave_requests.update_one({'_id': ObjectId(id)}, {'$set': {'status': 'rejected'}})
+    return jsonify({"success": True, "message": "Leave request rejected"})

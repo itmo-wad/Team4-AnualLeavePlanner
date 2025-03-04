@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Approvals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='manage_employee.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav>
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="/manager_dashboard"> 🏠 Dashboard</a></li>
+            <li><a href="/manager_dashboard/manage_employee" class="active">👥 Manage Employees</a></li>
+            <li><a href="/manager_dashboard/leave_approvals">📅 Leave Approvals</a></li>
+        </ul>
+
+        <div class="logout-button">
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="content">
+        <h1>Leave Approvals</h1>
+
+        <table class="employee-table">
+            <thead>
+                <tr>
+                    <th>Surname</th>
+                    <th>Firstname</th>
+                    <th>Email</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leave in leave_requests %}
+                <tr id="leave-{{ leave.id }}">
+                    <td>{{ leave.surname }}</td>
+                    <td>{{ leave.firstname }}</td>
+                    <td>{{ leave.email }}</td>
+                    <td>{{ leave.start_date }}</td>
+                    <td>{{ leave.end_date }}</td>
+                    <td class="status">{{ leave.status }}</td>
+                    <td>
+                        {% if leave.status == 'pending' %}
+                        <button class="approve-btn" data-id="{{ leave.id }}">Approve</button>
+                        <button class="reject-btn" data-id="{{ leave.id }}">Reject</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.approve-btn').click(function() {
+                var leaveId = $(this).data('id');
+                $.post('/manager_dashboard/approve_leave/' + leaveId, function(response) {
+                    if (response.message) {
+                        $('#leave-' + leaveId + ' .status').text('approved');
+                        $('#leave-' + leaveId + ' .approve-btn, #leave-' + leaveId + ' .reject-btn').hide();
+                    }
+                });
+            });
+
+            $('.reject-btn').click(function() {
+                var leaveId = $(this).data('id');
+                $.post('/manager_dashboard/reject_leave/' + leaveId, function(response) {
+                    if (response.message) {
+                        $('#leave-' + leaveId + ' .status').text('rejected');
+                        $('#leave-' + leaveId + ' .approve-btn, #leave-' + leaveId + ' .reject-btn').hide();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>
