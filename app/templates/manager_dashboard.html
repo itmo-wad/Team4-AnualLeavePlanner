@@ -6,8 +6,9 @@
     <title>Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 <body>
 
@@ -45,12 +46,84 @@
                     events: '/calendar_data',
                     height: 600,
                     firstDay: 1,
+                    eventClick: function(info) {
+                    var leaveId = info.id;
+                    var name = info.title;
+                    var startDate = info.start.toISOString().split('T')[0];
+                    // On 1 day events, end date is null
+                    if (info.end == null) {
+                        var endDate = startDate;
+                    } else {
+                        var endDate = info.end.toISOString().split('T')[0];
+                    }
+                    var email = info.email;
+                    var status = info.status;
+                    $('#modal-name').text(name);
+                    $('#modal-start-date').text(startDate);
+                    $('#modal-end-date').text(endDate);
+                    $('#modal-status').text(status);
+                    $('#modal-email').text(email);
+
+                    $('#modal-approve-btn').data('id', leaveId);
+                    $('#modal-reject-btn').data('id', leaveId);
+
+                    $('#leaveModal').css('display', 'block');
+                    }
                 });
             });
+        $(document).on('click', '#modal-approve-btn', function() {
+            var leaveId = $(this).data('id');
+            $.post('/manager_dashboard/approve_leave/' + leaveId, function(response) {
+                if (response.success) {
+                    $('#modal-status').text('approved');
+                    $('#calendar').fullCalendar('refetchEvents');
+                    $('#leaveModal').css('display', 'none');
+                } else {
+                    alert(response.message);
+                }
+            });
+        });
+
+        $(document).on('click', '#modal-reject-btn', function() {
+            var leaveId = $(this).data('id');
+            $.post('/manager_dashboard/reject_leave/' + leaveId, function(response) {
+                if (response.success) {
+                    $('#modal-status').text('rejected');
+                    $('#calendar').fullCalendar('refetchEvents');
+                    $('#leaveModal').css('display', 'none');
+                } else {
+                    alert(response.message);
+                }
+            });
+        });
         </script>
 
     </div>
 
-
+<!-- Add this modal at the end of the body tag -->
+<div id="leaveModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Leave Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#leaveModal').css('display', 'none');">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Name:</strong> <span id="modal-name"></span></p>
+                <p><strong>Email:</strong> <span id="modal-email"></span></p>
+                <p><strong>Start Date:</strong> <span id="modal-start-date"></span></p>
+                <p><strong>End Date:</strong> <span id="modal-end-date"></span></p>
+                <p><strong>Status:</strong> <span id="modal-status"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="modal-approve-btn">Approve</button>
+                <button type="button" class="btn btn-danger" id="modal-reject-btn">Reject</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#leaveModal').css('display', 'none');">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

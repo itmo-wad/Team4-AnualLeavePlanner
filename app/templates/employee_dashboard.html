@@ -101,7 +101,7 @@
                             row.remove();
                             $('#calendar').fullCalendar('refetchEvents');
                         } else {
-                            alert('An error occurred. Please try again.');
+                            alert(data.message);
                         }
                     });
             }

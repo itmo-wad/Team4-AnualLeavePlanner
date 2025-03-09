@@ -187,3 +187,61 @@ nav ul li a.active {
 .success {
     color: green;
 }
+
+.fc-event{
+    border-width: 2px;
+}
+
+/* Calendar modal */
+
+.modal {
+    display: none; /* Hide the modal by default */
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Add a background overlay */
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10% auto;
+    max-width: 500px; /* Set a max-width for the modal */
+}
+
+.modal-content {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.3rem;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-title {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.modal-body {
+    position: relative;
+    padding: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    border-top: 1px solid #dee2e6;
+}
