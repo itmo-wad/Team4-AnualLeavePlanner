@@ -11,8 +11,7 @@ This project is a web-based application designed to help employees submit and ma
 [5. Project Structure](#5-project-structure)  
 [6. Current Progress](#6-current-progress)  
 [7. Running the Project](#7-running-the-project)  
-[8. Testing](#8-testing)  
-[9. Contributing](#9-contributing)  
+[8. Contributing](#8-contributing)  
 <br>
 
 
@@ -23,7 +22,7 @@ To get the project up and running locally on your machine, follow the steps belo
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/annual-leave-planner.git
+   git clone https://github.com/itmo-wad/Team4-AnualLeavePlanner.git
    cd annual-leave-planner
    ```
    
@@ -40,14 +39,18 @@ To get the project up and running locally on your machine, follow the steps belo
    ```
    
 4. **Set up MongoDB**
-	Ensure MongoDB is running locally
+	Ensure MongoDB is running locally or start with docker
+   ```bash
+   docker run --name mongodb -p 27017:27017 -d mongodb/mongodb:latest
+   ```
+
 	
-5. **Run the app**
+6. **Run the app**
    ```bash
 	python app.py
    ```
    
-6. **Visit the application**
+7. **Visit the application**
 	Open your browser and navigate to http://127.0.0.1:5000/
 
 ## 2. Environment Variables Configuration
@@ -57,6 +60,10 @@ Before running the project, you will need to configure some environment variable
 
 #### **List of Required Environment Variables:**
 ```env
+FLASK_ENV=production
+MONGO_HOST=mongodb
+MONGO_PORT=27017
+MONGO_DB_NAME=leave_management
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USERNAME=your_email@gmail.com
@@ -65,6 +72,10 @@ SEND_EMAIL=True
 ```
 
 #### **Explanation of the Variables:**
+- **`FLASK_ENV`** → `production` or `debug` (turns flask debug on)
+- **`MONGO_HOST`** → Mongodb host
+- **`MONGO_PORT`** → Mongodb port
+- **`MONGO_DB_NAME`** → Mongodb database name
 - **`SMTP_SERVER`** → The SMTP server address used for sending emails (`smtp.gmail.com` for Gmail).
 - **`SMTP_PORT`** → The port number used for SMTP communication (`587` for TLS).
 - **`SMTP_USERNAME`** → The email address used for sending emails.
@@ -146,22 +157,19 @@ The project follows a modular structure to separate concerns for better maintain
 ### **Design Tasks**
 1. **Login/Register (#1)**: Done ✅
 2. **Manager Dashboard (#2)**: Done ✅
-3. **Employee Dashboard (#3)**: In Progress 🔄
-4. **Manage Employees Dashboard (#4)**: Not Started 🚧
-5. **Leave Approvals (#5)**: Not Started 🚧
+3. **Employee Dashboard (#3)**: Done ✅
+4. **Manage Employees Dashboard (#4)**: Done ✅
+5. **Leave Approvals (#5)**: Done ✅
 
 ### **Feature Tasks**
 1. **Login/Registration (#6)**: Done ✅
-2. **Manager Employee Dashboard (#7)**: Not Started 🚧
-3. **Leave Request Form (#8)**: In Progress 🔄
-4. **Leave Approval Dashboard (#9)**: Not Started 🚧
-5. **Handle Conflicts (#10)**: Not Started 🚧
+2. **Manager Employee Dashboard (#7)**: Done ✅
+3. **Leave Request Form (#8)**: Done ✅
+4. **Leave Approval Dashboard (#9)**: Done ✅
+5. **Handle Conflicts (#10)**: Done ✅
 
 ### **Next Steps**
-- **Focus on completing the Employee Dashboard (#3)** and the **Leave Request Form (#8)**.
-- Start **Manage Employees Dashboard (#4)** to allow managers to create, view, and manage employee accounts.
-- Implement the **Leave Approval Dashboard (#9)** where managers can approve or reject leave requests.
-- Resolve overlapping leave requests by developing the **Handle Conflicts (#10)** feature, which ensures no double bookings.
+- Implement new features
 <br>
 
 
@@ -180,18 +188,7 @@ The project follows a modular structure to separate concerns for better maintain
 	This will build the necessary containers and start the application
 <br>
 
-
-## 8. Testing
-
-To test the application:
-
-1. **Unit Tests**: We recommend writing unit tests for each module to ensure everything functions correctly. You can use the unittest or pytest framework
-
-2. **Manual Testing**: Test the application manually by submitting leave requests, approving/rejecting them, and ensuring there are no conflicts
-<br>
-
-
-## 9. Contributing
+## 8. Contributing
 
 We welcome contributions! If you'd like to improve the project, please follow these steps:
 
