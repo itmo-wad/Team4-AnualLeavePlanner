@@ -51,6 +51,7 @@
                     <th>Email</th>
                     <th>Total leave days</th>
                     <th>Planned leave days</th>
+                    <th>Color</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -62,8 +63,9 @@
                     <td>{{ employee.email }}</td>
                     <td>{{ employee.total_leave_days }}</td>
                     <td>{{ employee.planned_leave_days }}</td>
+                    <td style="background-color: {{ employee.color }};"></td>
                     <td>
-                        <button class="edit-btn" onclick="openEditModal('{{ employee._id }}', '{{ employee.surname }}', '{{ employee.firstname }}', '{{ employee.email }}', '{{ employee.total_leave_days }}', '{{ employee.planned_leave_days }}')">Edit</button>
+                        <button class="edit-btn" onclick="openEditModal('{{ employee._id }}', '{{ employee.surname }}', '{{ employee.firstname }}', '{{ employee.email }}', '{{ employee.total_leave_days }}', '{{ employee.planned_leave_days }}', '{{ employee.color }}')">Edit</button>
                         <button class="delete-btn" onclick="deleteEmployee('{{ employee._id }}')">Delete</button>
                     </td>                    
                 </tr>
@@ -83,6 +85,7 @@
                     <input type="email" id="editEmail" placeholder="Email" required>
                     <input type="number" id="editTotalLeave" placeholder="Total leave days" required>
                     <input type="number" id="editPlannedLeave" placeholder="Planned leave days" required>
+                    <input type="color" id="editColor" placeholder="Color" required>
                     <button type="submit">Save</button>
                 </form>
             </div>

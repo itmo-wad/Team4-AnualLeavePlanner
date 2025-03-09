@@ -35,7 +35,7 @@ def calendar_data():
                 "title": f"{user['surname']} {user['firstname']}",
                 "start": leave_request['start_date'],
                 "end": end_date.strftime("%Y-%m-%d"),
-                "backgroundColor": "purple"
+                "backgroundColor": user.get('color', 'blue')
             })
 
         # Changes color for both overlapping leaves, O(n^2) complexity

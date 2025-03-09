@@ -6,6 +6,7 @@ from .models import User
 import smtplib
 from email.mime.text import MIMEText
 import os
+import random
 
 main = Blueprint('main', __name__)
 
@@ -100,7 +101,8 @@ def manage_employee():
                 "password": hashed_password,
                 "isManager": False,
                 "total_leave_days": 30,
-                "planned_leave_days": 0
+                "planned_leave_days": 0,
+                "color": "#{:06x}".format(random.randint(0, 0xFFFFFF))
             })
             if SEND_EMAIL:
                 send_email(email, username, password)
@@ -123,7 +125,8 @@ def update_employee(id):
                 "firstname": data["firstname"],
                 "email": data["email"],
                 "total_leave_days": int(data["total_leave_days"]),
-                "planned_leave_days": int(data["planned_leave_days"])
+                "planned_leave_days": int(data["planned_leave_days"]),
+                "color": data["color"]
             }}
         )
         return jsonify({"message": "Employee updated successfully"}), 200

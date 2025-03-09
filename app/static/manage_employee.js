@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 });
 
-function openEditModal(id, surname, firstname, email, totalLeave, plannedLeave) {
+function openEditModal(id, surname, firstname, email, totalLeave, plannedLeave, color) {
     document.getElementById("editId").value = id;
     document.getElementById("editSurname").value = surname;
     document.getElementById("editFirstname").value = firstname;
     document.getElementById("editEmail").value = email;
     document.getElementById("editTotalLeave").value = totalLeave;
     document.getElementById("editPlannedLeave").value = plannedLeave;
-    
+    document.getElementById("editColor").value = color;
     document.getElementById("editModal").style.display = "flex"; // Affiche le modal
 }
 
@@ -53,6 +53,7 @@ document.getElementById("editForm").addEventListener("submit", function(event) {
     let email = document.getElementById("editEmail").value;
     let totalLeave = document.getElementById("editTotalLeave").value;
     let plannedLeave = document.getElementById("editPlannedLeave").value;
+    let color = document.getElementById("editColor").value;
 
     // Création de l'objet de données
     let updatedData = {
@@ -60,7 +61,8 @@ document.getElementById("editForm").addEventListener("submit", function(event) {
         firstname: firstname,
         email: email,
         total_leave_days: totalLeave,
-        planned_leave_days: plannedLeave
+        planned_leave_days: plannedLeave,
+        color: color
     };
 
     // Envoi des données via fetch API
