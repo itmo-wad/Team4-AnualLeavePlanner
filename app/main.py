@@ -72,6 +72,8 @@ def logout():
 @login_required
 def manager_dashboard():
     user = mongo.db.users.find_one({'username': current_user.username})
+    if not user['isManager']:
+        return redirect('/')
     return render_template('manager_dashboard.html', user=user)
 
 
@@ -79,7 +81,7 @@ def manager_dashboard():
 @login_required
 def manage_employee():
     if not current_user.isManager:
-        return redirect('/login')  
+        return redirect('/')
 
     if request.method == 'POST':
         surname = request.form.get('surname')
@@ -115,7 +117,10 @@ def manage_employee():
     return render_template("manage_employee.html", employees=employees)
 
 @main.route('/update_employee/<id>', methods=['PUT'])
+@login_required
 def update_employee(id):
+    if not current_user.isManager:
+        return redirect('/')
     try:
         data = request.json  # Récupération des données envoyées en JSON
         mongo.db.users.update_one(
@@ -134,7 +139,10 @@ def update_employee(id):
         return jsonify({"error": str(e)}), 500
 
 @main.route('/delete_employee/<id>', methods=['DELETE'])
+@login_required
 def delete_employee(id):
+    if not current_user.isManager:
+        return redirect('/')
     try:
         result = mongo.db.users.delete_one({"_id": ObjectId(id)})
         

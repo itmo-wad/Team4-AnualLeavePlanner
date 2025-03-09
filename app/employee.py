@@ -34,6 +34,13 @@ def employee_dashboard_post():
     end_date = datetime.strptime(request.form.get('end_date'), "%Y-%m-%d") + timedelta(days=1)
 
     days = (end_date - start_date).days
+    if days < 0:
+        flash("End date cannot be before start date", "error")
+        return redirect('/employee_dashboard')
+    if days > user['planned_leave_days']:
+        flash(f"You do not have enough leave days. You asked for {days} days, you have {user['planned_leave_days']} days", "error")
+        return redirect('/employee_dashboard')
+
     planned_leave_days += days
     user['planned_leave_days'] = planned_leave_days
     mongo.db.users.update_one({'_id': user['_id']}, {"$set": user})
@@ -58,7 +65,7 @@ def cancel_leave_request(id):
     if not leave_request:
         return jsonify({"success": False, "message": "Leave request not found"})
     if leave_request['status'] != 'pending':
-        return jsonify({"success": False, "message": "Leave request cannot be cancelled"})
+        return jsonify({"success": False, "message": f"Leave request cannot be cancelled, it's already {leave_request['status']}"})
     if leave_request['user_id'] != user['_id']:
         return jsonify({"success": False, "message": "Leave request does not belong to you"})
     mongo.db.leave_requests.delete_one({'_id': ObjectId(id)})
